@@ -1,0 +1,29 @@
+Textile 2 fixes
+===============
+Here are some fixes for the Textile 2 plugin in WordPress. Please note that they may break
+other functionlity in the app, and there may be other issues too that I haven't covered.
+
+--
+To stop Textile from inserting breaks midway through your code:
+
+In line 262, change
+
+"$1<br />", $text);
+
+to
+
+"$1", $text);
+
+However, this may stop breaks from being inseted when you press "enter".
+
+--
+To stop Textile from inserting paragraph tags in front of block-level elements like
+"blockquote", "ul", or "ol":
+
+In line 276, change
+
+$line = preg_replace('/^(?!\t|<\/?pre|<\/?code|$|)(.*)/',"\t<p>$1</p>",$line);
+
+to
+
+$line = preg_replace('/^(?!\t|<\/?pre|<\/?code|<\/?blockquote|<\/?ol|<\/?ul|$| )(.*)/',"\t<p>$1</p>",$line);
